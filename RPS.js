@@ -38,7 +38,7 @@ function playRounds(humanChoice, computerChoice){
         return "You lose";
     }
     else if(humanChoice === computerChoice){
-        return "It's a Tie";
+        return "It's a tie";
     }
 }
 
@@ -46,13 +46,26 @@ function playGame(){
     //code for prompting user input for the amount of rounds user wants
     // numRounds = user input
     //roundsPlayed = rounds counter
+    let humanWins = 0;
+    let computerWins = 0;
+    let ties = 0;
     let numRounds = prompt("Enter the number of rounds that you want to play", "");
     let roundsPlayed = 0;
+    
     while(roundsPlayed<numRounds){
         let humanChoice = getHumanChoice();
         let computerChoice = getComputerChoice();
         let result = playRounds(humanChoice, computerChoice);
 
+        if(result === "You win"){
+            humanWins++;
+        }
+        if(result === "You lose"){
+            computerWins++;
+        }
+        if(result === "It's a tie"){
+            ties++;
+        }
         let humanText = "";
         if(humanChoice === 0){
             humanText = "Rock";
@@ -79,6 +92,10 @@ function playGame(){
 
         roundsPlayed++;
     }
+    console.log("=== FINAL SCOREBOARD ===");
+    console.log("Your wins:" + humanWins);
+    console.log("Your losses:" + computerWins);
+    console.log("Ties:" + ties);
 
 }
 
