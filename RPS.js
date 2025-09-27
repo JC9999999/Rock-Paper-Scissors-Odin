@@ -42,68 +42,83 @@ function playRounds(humanChoice, computerChoice){
     }
 }
 
+function convertToText(choice){
+    if (choice === 0){
+        return "Rock";
+    }
+    if (choice === 1){
+        return "Paper";
+    }
+    if (choice === 2){
+        return "Scissor";
+    }
+}
+
 function playGame(){
-    //code for prompting user input for the amount of rounds user wants
-    // numRounds = user input
-    //roundsPlayed = rounds counter
+    const rock = document.createElement("button");
+    const paper = document.createElement("button");
+    const scissor = document.createElement("button");
+
+    rock.textContent = "Rock";
+    paper.textContent = "Paper";
+    scissor.textContent = "Scissor";
+
+    const displayResult = document.createElement("div");
+    document.body.appendChild(rock);
+    document.body.appendChild(paper);
+    document.body.appendChild(scissor);
+    document.body.appendChild(displayResult);
+
     let humanWins = 0;
     let computerWins = 0;
     let ties = 0;
-    let numRounds = prompt("Enter the number of rounds that you want to play", "");
-    let roundsPlayed = 0;
-    
-    while(roundsPlayed<numRounds){
-        let humanChoice = getHumanChoice();
+    rock.addEventListener("click", function(e){
+        //link 0 to the button so that when the button is clicked on, it will tell player what the computer chose and whether the player won the round or not
+        const humanChoice = 0;
         let computerChoice = getComputerChoice();
         let result = playRounds(humanChoice, computerChoice);
 
-        if(result === "You win"){
+        displayResult.textContent = "Computer has chosen " + convertToText(computerChoice) + ". " + result + ".";
+
+        if (result === "You win"){
             humanWins++;
-        }
-        if(result === "You lose"){
+        }else if(result === "You lose"){
             computerWins++;
-        }
-        if(result === "It's a tie"){
+        }else{
             ties++;
         }
-        let humanText = "";
-        if(humanChoice === 0){
-            humanText = "Rock";
-        }
-        if (humanChoice === 1){
-            humanText = "Paper";
-        }
-        if (humanChoice === 2){
-            humanText = "Scissors";
-        }
-        let computerText = "";
-        if(computerChoice === 0){
-            computerText = "Rock";
-        }
-        if (computerChoice === 1){
-            computerText = "Paper";
-        }
-        if (computerChoice === 2){
-            computerText = "Scissors";
-        }
-        console.log("You have chosen" + humanText);
-        console.log("Computer has chosen" + computerText);
-        console.log(result);
+        displayResult.textContent += "\nWins: " + humanWins + "\nLosses: " + computerWins + "\nTies: " + ties;
+    })
+    paper.addEventListener("click", function(e){
+        const humanChoice = 1;
+        let computerChoice = getComputerChoice();
+        let result = playRounds(humanChoice, computerChoice);
+        displayResult.textContent = "Computer has chosen " + convertToText(computerChoice) + ". " + result + ". ";
 
-        roundsPlayed++;
-    }
-    console.log("=== FINAL SCOREBOARD ===");
-    console.log("Your wins:" + humanWins);
-    console.log("Your losses:" + computerWins);
-    console.log("Ties:" + ties);
+        if (result === "You win"){
+            humanWins++;
+        }else if(result === "You lose"){
+            computerWins++;
+        }else{
+            ties++;
+        }
+        displayResult.textContent += "\nWins: " + humanWins + "\nLosses: " + computerWins + "\nTies: " + ties;
 
+    })
+    scissor.addEventListener("click", function(e){
+        const humanChoice = 2;
+        let computerChoice = getComputerChoice();
+        let result = playRounds(humanChoice, computerChoice);
+        displayResult.textContent = "Computer has chosen " + convertToText(computerChoice) + ". " + result + ". ";
+
+        if (result === "You win"){
+            humanWins++;
+        }else if(result === "You lose"){
+            computerWins++;
+        }else{
+            ties++;
+        }
+        displayResult.textContent += "\nWins: " + humanWins + "\nLosses: " + computerWins + "\nTies: " + ties;
+    })
 }
-
 playGame();
-
-
-
-
-
-
-
